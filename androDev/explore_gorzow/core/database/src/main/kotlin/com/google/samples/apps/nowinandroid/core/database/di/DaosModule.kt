@@ -16,7 +16,7 @@
 
 package com.google.samples.apps.nowinandroid.core.database.di
 
-import com.google.samples.apps.nowinandroid.core.database.NiaDatabase
+import com.google.samples.apps.nowinandroid.core.database.EGDatabase
 import com.google.samples.apps.nowinandroid.core.database.dao.sights.SightsDao
 import dagger.Module
 import dagger.Provides
@@ -28,6 +28,6 @@ import dagger.hilt.components.SingletonComponent
 internal object DaosModule {
     @Provides
     fun providesSightsDao(
-        database: NiaDatabase,
+        database: EGDatabase,
     ): SightsDao = database.sightsDao()
 }

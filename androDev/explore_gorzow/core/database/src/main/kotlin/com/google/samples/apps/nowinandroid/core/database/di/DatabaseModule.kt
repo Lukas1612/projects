@@ -18,7 +18,7 @@ package com.google.samples.apps.nowinandroid.core.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.google.samples.apps.nowinandroid.core.database.NiaDatabase
+import com.google.samples.apps.nowinandroid.core.database.EGDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,11 +31,11 @@ import javax.inject.Singleton
 internal object DatabaseModule {
     @Provides
     @Singleton
-    fun providesNiaDatabase(
+    fun providesEGDatabase(
         @ApplicationContext context: Context,
-    ): NiaDatabase = Room.databaseBuilder(
+    ): EGDatabase = Room.databaseBuilder(
         context,
-        NiaDatabase::class.java,
-        "nia-database",
+        EGDatabase::class.java,
+        "explore_gorzow-database",
     ).build()
 }

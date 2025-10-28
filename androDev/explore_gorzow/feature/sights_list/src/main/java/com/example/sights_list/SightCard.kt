@@ -91,11 +91,6 @@ fun SightCard(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = 16.dp),
             )
-            Text(
-                text = userSight.sight.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-            )
 
             val buttonModifier = Modifier
                 .height(48.dp) // or use `.defaultMinSize(minHeight = 48.dp)`

@@ -20,7 +20,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
@@ -71,10 +73,6 @@ fun ExpandedSightScreen(
                 sightsListViewModel = sightsListViewModel
             )
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text("Main Content", modifier = Modifier.align(Alignment.Center))
-            }
-
             // Floating circular back button
             Box(
                 modifier = Modifier
@@ -96,7 +94,6 @@ fun ExpandedSightScreen(
     }
 }
 
-
 @Composable
 private fun ExpandedSightContent(
     userSight: UserSight,
@@ -105,11 +102,12 @@ private fun ExpandedSightContent(
     sightsListViewModel: ExpandedSightViewModel
 ) {
     val painter = painterResource(id = userSight.sight.imageResId)
-
+    val scrollState = rememberScrollState() // remember scroll state
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize() // take full height to allow scrolling
+            .verticalScroll(scrollState) // make it scrollable
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -140,11 +138,12 @@ private fun ExpandedSightContent(
                 Icon(
                     contentDescription = "Favorite",
                     imageVector = if (userSight.isBookmarked)
-                        Icons.Filled.Favorite// selected
+                        Icons.Filled.Favorite
                     else
-                        Icons.Outlined.FavoriteBorder// unselected
+                        Icons.Outlined.FavoriteBorder
                 )
             }
+
             IconButton(onClick = { onLocationToggled(userSight) }) {
                 Icon(
                     imageVector = Icons.Default.Map,
@@ -158,7 +157,6 @@ private fun ExpandedSightContent(
                     contentDescription = "Show route"
                 )
             }
-
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -178,11 +176,9 @@ private fun ExpandedSightContent(
         Text(
             text = userSight.sight.description,
             style = MaterialTheme.typography.bodyMedium,
-            maxLines = 3,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp)
+            modifier = Modifier.fillMaxWidth() // no maxLines limit for full scrolling
         )
+
+        Spacer(modifier = Modifier.height(16.dp)) // optional padding at bottom
     }
 }
